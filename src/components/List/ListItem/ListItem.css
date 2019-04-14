@@ -7,6 +7,9 @@
     padding: 10px 15px;
     border-radius: .25rem;
 }
+.listItem.listItem--important {
+    background: tomato;
+}
 
 .listItem:last-child {
     margin-bottom: 0;
@@ -82,7 +85,7 @@
 .listItem__important {
     border: none;
     border-radius: .25rem;
-    background: #000;
+    background: #6c757d;
     color: #fff;
     font-size: 18px;
     height: 30px;
@@ -91,6 +94,10 @@
     text-align: center;
     margin-right: 5px;
     cursor: pointer;
+}
+
+.listItem__important.listItem__important--active {
+    background: #000;
 }
 
 .listItem__check {

@@ -6,8 +6,10 @@
 
 .info__done {
     color: blue;
+    padding: 5px;
 }
 
 .info__left {
     color: red;
+    padding: 5px;
 }
