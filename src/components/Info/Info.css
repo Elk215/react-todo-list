@@ -1,0 +1,13 @@
+.info {
+    color: #010101;
+    font-size: 18px;
+    margin: 0;
+}
+
+.info__done {
+    color: blue;
+}
+
+.info__left {
+    color: red;
+}

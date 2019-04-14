@@ -1,0 +1,148 @@
+.listItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    background: #fff;
+    padding: 10px 15px;
+    border-radius: .25rem;
+}
+
+.listItem:last-child {
+    margin-bottom: 0;
+}
+
+.listItem__wrap {
+    display: flex;
+    align-items: center;
+}
+
+
+.listItem__field {
+    border: none;
+    background: transparent;
+    width: 100%;
+    margin-right: 20px;
+    color: #000;
+    font-size: 18px;
+    height: 30px;
+    line-height: 30px;
+    cursor: default;
+    user-select: none;
+}
+
+.listItem__field.active {
+    border: 1px solid #000;
+    background: #fff;
+    cursor: text;
+    user-select: auto;
+}
+
+.listItem__change {
+    border: none;
+    border-radius: .25rem;
+    background: #000;
+    color: #fff;
+    font-size: 18px;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 10px;
+    cursor: pointer;
+}
+
+.listItem__save {
+    border: none;
+    border-radius: .25rem;
+    background: green;
+    color: #fff;
+    font-size: 18px;
+    height: 30px;
+    line-height: 30px;
+    margin-right: 5px;
+    padding: 0 10px;
+    cursor: pointer;
+}
+
+.listItem__cancel {
+    border: none;
+    border-radius: .25rem;
+    background: red;
+    color: #fff;
+    font-size: 18px;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 10px;
+    cursor: pointer;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.listItem__important {
+    border: none;
+    border-radius: .25rem;
+    background: #000;
+    color: #fff;
+    font-size: 18px;
+    height: 30px;
+    width: 30px;
+    line-height: 30px;
+    text-align: center;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.listItem__check {
+    display: inline-block;
+    position: relative;
+    height: 26px;
+    width: 26px;
+    padding-left: 26px;
+    margin-right: 20px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.listItem__check input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.listItem__check span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 26px;
+    width: 26px;
+    background-color: #eee;
+    border-radius: .25rem;
+}
+
+.listItem__check span:after {
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 16px;
+    height: 16px;
+    border-radius: .25rem;
+    background-color: transparent;
+}
+
+.listItem__check input:checked ~ span:after {
+    background-color: #2196F3;
+}
+
+
+
+
