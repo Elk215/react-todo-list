@@ -19,7 +19,8 @@ export default class App extends Component {
       this.createTask('Task2'),
       this.createTask('Task3')
     ],
-    searchValue: ''
+    searchValue: '',
+    filterBase: 'all'
   }
 
   createTask(title) {
@@ -74,14 +75,8 @@ export default class App extends Component {
     this.setState({searchValue});
   }
 
-  searchItems(items, searchValue) {
-    if (searchValue.length === 0) {
-      return items;
-    }
-
-    return items.filter((item) => {
-      return item.title.toLowerCase().indexOf(searchValue.toLowerCase()) > -1;
-    });
+  doFilterTasks = (filterBase) => {
+    this.setState({filterBase});
   }
 
   onDelete = (id) => {
@@ -110,24 +105,44 @@ export default class App extends Component {
     })
   };
 
-  
- 
+  filterItems(items, filterBase) {
+    if (filterBase === 'all') {
+      return items;
+    } else if (filterBase === 'left') {
+      return items.filter((item) => (!item.done));
+    } else if (filterBase === 'done') {
+      return items.filter((item) => item.done);
+    }
+  }
+
+  searchItems(items, searchValue) {
+    if (searchValue.length === 0) {
+      return items;
+    }
+
+    return items.filter((item) => {
+      return item.title.toLowerCase().indexOf(searchValue.toLowerCase()) > -1;
+    });
+  }
 
   render() {
-    const {tasks, searchValue} = this.state;
+    const {tasks, searchValue, filterBase} = this.state;
     const doneElements = tasks.filter((task) => task.done).length;
     const leftElements = tasks.length - doneElements;
-    const searchResult = this.searchItems(tasks, searchValue);
+    const visibleResult = this.searchItems(this.filterItems(tasks, filterBase), searchValue);
     return (
       <div className="app">
         <Welcome />
         <Search onSearchChange={this.searchTask} />
         <div className="app__justify">
           <Info leftElements={leftElements} doneElements={doneElements} />
-          <Filter />
+          <Filter 
+            filterBase={filterBase}
+            doFilterTasks={this.doFilterTasks}
+           />
         </div>
         <List 
-          items={searchResult} 
+          items={visibleResult} 
           makeImportant={this.makeImportant}
           makeDone={this.makeDone}
           onDelete={this.onDelete}

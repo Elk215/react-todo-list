@@ -1,14 +1,28 @@
-import React, {Component} from 'react';
+import React from 'react';
 import './Filter.css';
 
-export default class Filter extends Component {
-    render() {
+
+const buttons = [
+    { name: 'All', key: 'all'},
+    { name: 'Done', key: 'done'},
+    { name: 'Left', key: 'left'}
+];
+
+const Filter = ({filterBase,doFilterTasks = () => {}}) => {
+    
+    const result = buttons.map(({name, key}) => {
+        const isActive = key === filterBase;
+        const classNames = 'filter__btn ' + (isActive ? 'filter__btn--active' : '');
         return (
-            <div className="filter">
-                <button className="filter__btn filter__btn--active">All</button>
-                <button className="filter__btn">Done</button>
-                <button className="filter__btn">Left</button>
-            </div>
+            <button key={key} className={classNames} onClick={() => doFilterTasks(key)}>{name}</button>
         );
-    }
-}
+    });
+
+    return (
+        <div className="filter">
+            {result}
+        </div>
+    );
+};
+
+export default Filter;
