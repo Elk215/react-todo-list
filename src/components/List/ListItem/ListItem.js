@@ -1,7 +1,7 @@
 import React from 'react';
 import './ListItem.css';
 
-const ListItem = ({id, title, done, important, change, makeImportant}) => {
+const ListItem = ({id, title, done, important, change, makeDone, makeImportant}) => {
 
     let listItemClass = 'listItem';
     let listItemImportantClass = 'listItem__important';
@@ -9,17 +9,22 @@ const ListItem = ({id, title, done, important, change, makeImportant}) => {
         listItemClass += ' listItem--important';
         listItemImportantClass += ' listItem__important--active';
     }
+    
+    let listItemAction = 'listItem__action';
+    if(done) {
+        listItemClass += ' listItem--checked';
+        listItemAction += ' hidden';
+    }
 
     return(
-        <li key={id} className={listItemClass}  important={important}>
+        <li key={id} className={listItemClass} checked={done} important={important}>
             <span className="listItem__wrap">
-                <label className="listItem__check">
-                    <input type="checkbox" checked={done} />
+                <span className="listItem__check" onClick={makeDone}>
                     <span></span>
-                </label>
+                </span>
                 <input type="text" className="listItem__field" value={title} disabled="true" />
             </span>
-            <span className="listItem__wrap">
+            <span className={"listItem__wrap" + listItemAction}>
                 <button className="listItem__save hidden">Save</button>
                 <button className="listItem__cancel hidden">Cancel</button>
                 <button className={listItemImportantClass} onClick={makeImportant}>!</button>

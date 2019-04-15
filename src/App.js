@@ -31,8 +31,6 @@ export default class App extends Component {
     };
   };
 
-
-
   makeImportant = (id) => {
     const {tasks} = this.state;
     const importantItem = tasks.findIndex((task)=>task.id === id);
@@ -48,12 +46,28 @@ export default class App extends Component {
         tasks: [...importantItems, ...notImportantItems]
       }
     });
-    
-    
   };
 
-  
+  makeDone = (id) => {
+    const {tasks} = this.state;
+    const doneItem = tasks.findIndex((task)=>task.id === id);
+    const newProperty = !tasks[doneItem].done;
+    let newProperty2 = tasks[doneItem].important;
+    if(tasks[doneItem].important) {
+      newProperty2 = !tasks[doneItem].important;
+    }
+    const newPropertyArray = {...tasks[doneItem], done: newProperty, important: newProperty2 };
+    const newArray = [...tasks.slice(0, doneItem), newPropertyArray, ...tasks.slice(doneItem + 1) ];
 
+    this.setState(() => {
+      const newObj = {tasks: newArray};
+      const importantItems = newObj.tasks.filter((task)=>task.done === true);
+      const notImportantItems = newObj.tasks.filter((task)=>task.done === false);
+      return {
+        tasks: [...notImportantItems, ...importantItems]
+      }
+    });
+  };
 
   render() {
     return (
@@ -64,7 +78,11 @@ export default class App extends Component {
           <Info />
           <Filter />
         </div>
-        <List items={this.state.tasks} makeImportant={this.makeImportant} />
+        <List 
+          items={this.state.tasks} 
+          makeImportant={this.makeImportant}
+          makeDone={this.makeDone}
+        />
         <CreateItem />
       </div>
     );

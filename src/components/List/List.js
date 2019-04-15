@@ -2,13 +2,14 @@ import React from 'react';
 import ListItem from './ListItem/ListItem';
 import './List.css';
 
-const List = ({items, makeImportant}) => {
+const List = ({items, makeImportant, makeDone}) => {
     const tasks = items.map((item => {
         const {id, ...other} = item;
         return(
             <ListItem 
                 id = {id}
                 {...other}
+                makeDone={() => makeDone(id)}
                 makeImportant={() => makeImportant(id)}
             />
         );

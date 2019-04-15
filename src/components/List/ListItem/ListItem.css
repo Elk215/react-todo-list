@@ -7,6 +7,10 @@
     padding: 10px 15px;
     border-radius: .25rem;
 }
+
+.listItem.listItem--checked {
+    background: rgba(255, 255, 255, .5);
+}
 .listItem.listItem--important {
     background: tomato;
 }
@@ -32,6 +36,10 @@
     line-height: 30px;
     cursor: default;
     user-select: none;
+}
+
+.listItem.listItem--checked .listItem__field {
+    text-decoration: line-through;
 }
 
 .listItem__field.active {
@@ -101,38 +109,17 @@
 }
 
 .listItem__check {
-    display: inline-block;
     position: relative;
     height: 26px;
     width: 26px;
     padding-left: 26px;
     margin-right: 20px;
     cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-
-.listItem__check input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
-}
-
-.listItem__check span {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 26px;
-    width: 26px;
     background-color: #eee;
     border-radius: .25rem;
 }
 
-.listItem__check span:after {
+.listItem__check span {
     position: absolute;
     content: '';
     top: 0;
@@ -146,7 +133,7 @@
     background-color: transparent;
 }
 
-.listItem__check input:checked ~ span:after {
+.listItem.listItem--checked .listItem__check span {
     background-color: #2196F3;
 }
 
