@@ -61,6 +61,19 @@
     cursor: pointer;
 }
 
+.listItem__delete {
+    border: none;
+    border-radius: .25rem;
+    background: red;
+    color: #fff;
+    font-size: 18px;
+    height: 30px;
+    margin-left: 5px;
+    line-height: 30px;
+    padding: 0 10px;
+    cursor: pointer;
+}
+
 .listItem__save {
     border: none;
     border-radius: .25rem;

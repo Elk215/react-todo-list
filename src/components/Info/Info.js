@@ -1,11 +1,11 @@
 import React from 'react';
 import './Info.css';
 
-const Info = () => {
+const Info = ({doneElements, leftElements}) => {
     return(
         <p className="info">Done
-            <span className="info__done">3</span>left
-            <span className="info__left">5</span>
+            <span className="info__done">{doneElements}</span>left
+            <span className="info__left">{leftElements}</span>
 
         </p>
     );

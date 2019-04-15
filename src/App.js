@@ -18,7 +18,8 @@ export default class App extends Component {
       this.createTask('Task1'),
       this.createTask('Task2'),
       this.createTask('Task3')
-    ]
+    ],
+    searchValue: ''
   }
 
   createTask(title) {
@@ -69,21 +70,69 @@ export default class App extends Component {
     });
   };
 
+  searchTask = (searchValue) => {
+    this.setState({searchValue});
+  }
+
+  searchItems(items, searchValue) {
+    if (searchValue.length === 0) {
+      return items;
+    }
+
+    return items.filter((item) => {
+      return item.title.toLowerCase().indexOf(searchValue.toLowerCase()) > -1;
+    });
+  }
+
+  onDelete = (id) => {
+    const {tasks} = this.state;
+    const deleteItem = tasks.findIndex((task)=>task.id === id);
+    const newArray = [...tasks.slice(0,deleteItem), ...tasks.slice(deleteItem + 1)];
+    console.log(newArray);
+    this.setState(() => {
+      const topPart = newArray.filter((item) => item.important);
+      const middlePart = newArray.filter((item) => item.done === false && item.important ===false);
+      const bottomPart = newArray.filter((item) => item.done);
+      return {
+        tasks: [...topPart, ...middlePart, ...bottomPart]
+      }
+    });
+
+  };
+
+  onTaskAdded = (title) => {
+    const {tasks} = this.state;
+    const topPart = tasks.filter((task)=>task.done === false);
+    const bottomPart = tasks.filter((task)=>task.done === true);
+    this.setState((state) => {
+      const task = this.createTask(title);
+      return { tasks: [...topPart, task, ...bottomPart] };
+    })
+  };
+
+  
+ 
+
   render() {
+    const {tasks, searchValue} = this.state;
+    const doneElements = tasks.filter((task) => task.done).length;
+    const leftElements = tasks.length - doneElements;
+    const searchResult = this.searchItems(tasks, searchValue);
     return (
       <div className="app">
         <Welcome />
-        <Search />
+        <Search onSearchChange={this.searchTask} />
         <div className="app__justify">
-          <Info />
+          <Info leftElements={leftElements} doneElements={doneElements} />
           <Filter />
         </div>
         <List 
-          items={this.state.tasks} 
+          items={searchResult} 
           makeImportant={this.makeImportant}
           makeDone={this.makeDone}
+          onDelete={this.onDelete}
         />
-        <CreateItem />
+        <CreateItem createTask={this.onTaskAdded}/>
       </div>
     );
   }

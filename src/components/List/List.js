@@ -2,7 +2,7 @@ import React from 'react';
 import ListItem from './ListItem/ListItem';
 import './List.css';
 
-const List = ({items, makeImportant, makeDone}) => {
+const List = ({items, makeImportant, makeDone, onDelete}) => {
     const tasks = items.map((item => {
         const {id, ...other} = item;
         return(
@@ -11,6 +11,7 @@ const List = ({items, makeImportant, makeDone}) => {
                 {...other}
                 makeDone={() => makeDone(id)}
                 makeImportant={() => makeImportant(id)}
+                onDelete={() => onDelete(id)}
             />
         );
     }));
