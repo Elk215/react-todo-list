@@ -1,0 +1,22 @@
+.welcome {
+    text-align: center;
+}
+
+.welcome__title {
+    font-size: 30px;
+    font-weight: 500;
+    margin: 8px 0 20px;
+}
+
+.welcome__info {
+    font-size: 14px;
+    margin: 14px;
+
+}
+
+.welcome__info a {
+    color: #1890ff;
+    text-decoration: none;
+}
+
+

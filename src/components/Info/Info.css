@@ -1,0 +1,15 @@
+.info {
+    color: #314659;
+    font-size: 14px;
+    margin: 0;
+}
+
+.info__done {
+    color: #1890ff;
+    padding: 5px;
+}
+
+.info__left {
+    color: #FF4444;
+    padding: 5px;
+}

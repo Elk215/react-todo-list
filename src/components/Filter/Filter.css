@@ -1,0 +1,33 @@
+.filter {
+    border-radius: 3px;
+}
+
+.filter__btn {
+    background: #fff;
+    height: 32px;
+    font-size: 14px;
+    outline: none;
+    line-height: 30px;
+    padding: 0 15px;
+    color: rgba(0,0,0,.65);
+    border: 1px solid #d9d9d9;
+    cursor: pointer;
+}
+
+.filter__btn:hover {
+    color: #40a9ff;
+}
+.filter__btn:active {
+    color: #40a9ff;
+}
+
+.filter__btn:first-child {
+    border-radius: 4px 0 0 4px;
+}
+.filter__btn:last-child {
+    border-radius: 0 4px 4px 0;
+}
+
+.filter__btn.filter__btn--active {
+    border-color: #1890ff;
+}
