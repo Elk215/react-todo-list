@@ -6,18 +6,14 @@
     border-bottom: 1px solid #e8e8e8;
     position: relative;
 }
-.listItem:hover {
-    background-color: #e6f7ff;
-}
-
 
 .listItem.listItem--checked {
-    background: rgba(255, 255, 255, .5);
+    background: rgb(190, 200, 200);
+    border-color: rgb(190, 200, 200);
 }
 .listItem.disabled {
     pointer-events: none;
     border-color: #1890ff;
-
 }
 .listItem.disabled:after {
     position: absolute;
@@ -26,11 +22,10 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: #1890ff;
-    
+    background: #1890ff; 
 }
 .listItem.listItem--important {
-    background: tomato;
+    background: #e6f7ff;
 }
 
 .listItem:last-child {

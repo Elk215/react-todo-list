@@ -101,13 +101,22 @@ export default class App extends Component {
     const {tasks} = this.state;
     const topPart = tasks.filter((task)=>task.done === false);
     const bottomPart = tasks.filter((task)=>task.done === true);
-    this.setState((state) => {
-      const task = this.createTask(title);
-      const newArray = [...topPart, task, ...bottomPart];
-      return {
-         tasks: newArray
-      };
-    })
+    if (title ==='') {
+      this.setState((state) => {
+        return {
+           tasks
+        };
+      })
+    } else {
+      this.setState((state) => {
+        const task = this.createTask(title);
+        const newArray = [...topPart, task, ...bottomPart];
+        return {
+          tasks: newArray
+        };
+      })
+    }
+    
   };
 
   filterItems(items, filterBase) {
