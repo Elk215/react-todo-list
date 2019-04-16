@@ -37,7 +37,7 @@ export default class ListItem extends Component{
                     <span className={"listItem__wrap" + listItemAction}>
                         <button className={"listItem__save" + propChange2} onClick={saveChange}>Save</button>
                         <button className={"listItem__cancel" + propChange2} onClick={cancelChange}>Cancel</button>
-                        <button className={listItemImportantClass + propChange} onClick={makeImportant}>!</button>
+                        <button className={listItemImportantClass + propChange} onClick={makeImportant}>&uarr;</button>
                         <button className={"listItem__change" + propChange} onClick={changeTask}>Change</button>
                     </span>
                     <button className={"listItem__delete" + propChange} onClick={onDelete}>Delete</button>

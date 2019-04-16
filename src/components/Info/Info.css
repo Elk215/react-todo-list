@@ -1,15 +1,15 @@
 .info {
-    color: #010101;
-    font-size: 18px;
+    color: #314659;
+    font-size: 14px;
     margin: 0;
 }
 
 .info__done {
-    color: blue;
+    color: #1890ff;
     padding: 5px;
 }
 
 .info__left {
-    color: red;
+    color: #FF4444;
     padding: 5px;
 }

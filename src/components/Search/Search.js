@@ -17,7 +17,7 @@ export default class Search extends Component  {
 
     render() {
         return (
-            <input type="text" className="search" onChange={this.searchTask} value={this.state.searchValue} placeholder="What you search?"/>
+            <input type="text" className="search" onChange={this.searchTask} value={this.state.searchValue} placeholder="Search..."/>
         );
     };
 }
