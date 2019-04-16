@@ -11,6 +11,10 @@
 .listItem.listItem--checked {
     background: rgba(255, 255, 255, .5);
 }
+.listItem.disabled {
+    pointer-events: none;
+    background: gray;
+}
 .listItem.listItem--important {
     background: tomato;
 }
@@ -24,13 +28,13 @@
     align-items: center;
 }
 
-
 .listItem__field {
     border: none;
     background: transparent;
     width: 100%;
     margin-right: 20px;
     color: #000;
+    padding: 0 10px;
     font-size: 18px;
     height: 30px;
     line-height: 30px;
@@ -48,6 +52,7 @@
     cursor: text;
     user-select: auto;
 }
+
 
 .listItem__change {
     border: none;
@@ -101,6 +106,7 @@
 
 .hidden {
     visibility: hidden;
+    display: none;
 }
 
 .listItem__important {
@@ -126,7 +132,7 @@
     height: 26px;
     width: 26px;
     padding-left: 26px;
-    margin-right: 20px;
+    margin-right: 10px;
     cursor: pointer;
     background-color: #eee;
     border-radius: .25rem;

@@ -11,7 +11,7 @@ import './App.css';
 
 export default class App extends Component {
   
-  id = 0;
+  id = 1;
 
   state = {
     tasks: [
@@ -20,7 +20,10 @@ export default class App extends Component {
       this.createTask('Task3')
     ],
     searchValue: '',
-    filterBase: 'all'
+    filterBase: 'all',
+    changeFieldValue: '',
+    changeFieldOldValue: '',
+    changeFieldId: ''
   }
 
   createTask(title) {
@@ -29,7 +32,8 @@ export default class App extends Component {
       title,
       done: false,
       important: false,
-      change: false
+      change: false,
+      disable: false
     };
   };
 
@@ -39,13 +43,12 @@ export default class App extends Component {
     const newProperty = !tasks[importantItem].important;
     const newPropertyArray = {...tasks[importantItem], important: newProperty };
     const newArray = [...tasks.slice(0, importantItem), newPropertyArray, ...tasks.slice(importantItem + 1) ];
-
+    const importantItems = newArray.filter((task)=>task.important === true);
+    const notImportantItems = newArray.filter((task)=>task.important === false);
     this.setState(() => {
-      const newObj = {tasks: newArray};
-      const importantItems = newObj.tasks.filter((task)=>task.important === true);
-      const notImportantItems = newObj.tasks.filter((task)=>task.important === false);
+      const newTasks = [...importantItems, ...notImportantItems];
       return {
-        tasks: [...importantItems, ...notImportantItems]
+        tasks: newTasks
       }
     });
   };
@@ -60,13 +63,12 @@ export default class App extends Component {
     }
     const newPropertyArray = {...tasks[doneItem], done: newProperty, important: newProperty2 };
     const newArray = [...tasks.slice(0, doneItem), newPropertyArray, ...tasks.slice(doneItem + 1) ];
-
     this.setState(() => {
-      const newObj = {tasks: newArray};
-      const importantItems = newObj.tasks.filter((task)=>task.done === true);
-      const notImportantItems = newObj.tasks.filter((task)=>task.done === false);
+      const importantItems = newArray.filter((task)=>task.done === true);
+      const notImportantItems = newArray.filter((task)=>task.done === false);
+      const newTasks = [...notImportantItems, ...importantItems];
       return {
-        tasks: [...notImportantItems, ...importantItems]
+        tasks: newTasks
       }
     });
   };
@@ -83,13 +85,13 @@ export default class App extends Component {
     const {tasks} = this.state;
     const deleteItem = tasks.findIndex((task)=>task.id === id);
     const newArray = [...tasks.slice(0,deleteItem), ...tasks.slice(deleteItem + 1)];
-    console.log(newArray);
     this.setState(() => {
       const topPart = newArray.filter((item) => item.important);
       const middlePart = newArray.filter((item) => item.done === false && item.important ===false);
       const bottomPart = newArray.filter((item) => item.done);
+      const newTasks = [...topPart, ...middlePart, ...bottomPart];
       return {
-        tasks: [...topPart, ...middlePart, ...bottomPart]
+        tasks: newTasks
       }
     });
 
@@ -101,7 +103,10 @@ export default class App extends Component {
     const bottomPart = tasks.filter((task)=>task.done === true);
     this.setState((state) => {
       const task = this.createTask(title);
-      return { tasks: [...topPart, task, ...bottomPart] };
+      const newArray = [...topPart, task, ...bottomPart];
+      return {
+         tasks: newArray
+      };
     })
   };
 
@@ -125,6 +130,83 @@ export default class App extends Component {
     });
   }
 
+  changeTask  = (id) => {
+    const {tasks} = this.state;
+    const index = tasks.findIndex((task)=>task.id === id);
+    const task = tasks[index];
+    const value = task.id;
+    const newLeftArray = {...tasks.slice(0,index).map((task)=>task.disable = true)};
+    const newRightArray = {...tasks.slice(index + 1).map((task)=>task.disable = true)};
+    
+    const newElement = {...task, change: true }; 
+    const newTasks = [...tasks.slice(0,index), newElement, ...tasks.slice(index + 1)];
+    const oldValue = task.title;
+    this.setState(() => {
+      return {
+        tasks: newTasks,
+        changeFieldId: value,
+        changeFieldOldValue: oldValue,
+        changeFieldValue: oldValue
+      }
+    });
+
+  };
+
+  changeFieldValue = (e) => {
+    const {tasks, changeFieldId} = this.state;
+    const index = tasks.findIndex((task)=>task.id === changeFieldId);
+    const task = tasks[index];
+    const newElement = {...task, title: e.target.value };
+    const newTasks = [...tasks.slice(0,index), newElement, ...tasks.slice(index + 1)];
+    const newValue = e.target.value;
+    this.setState(() => {
+      return {
+        tasks: newTasks,
+        changeFieldValue: newValue
+      }
+    });
+  }
+
+  saveChange = () => {
+    const {tasks, changeFieldId,  changeFieldValue, changeFieldOldValue} = this.state;
+    const index = tasks.findIndex((task)=>task.id === changeFieldId);
+    const task = tasks[index];
+    let newValue = '';
+    if(changeFieldValue === changeFieldOldValue) {
+      newValue = changeFieldOldValue;
+    } else if(changeFieldValue === ''){
+      newValue = 'Empty';
+    } else {
+      newValue = changeFieldValue;
+    }
+    const newElement = {...task, title: newValue, change: false };
+    const newLeftArray = {...tasks.slice(0,index).map((task)=>task.disable = false)};
+    const newRightArray = {...tasks.slice(index + 1).map((task)=>task.disable = false)};
+    const newTasks = [...tasks.slice(0,index), newElement, ...tasks.slice(index + 1)];
+    this.setState(() => {
+      return {
+        tasks: newTasks
+      }
+    });
+  }
+
+  cancelChange = () => {
+    const {tasks, changeFieldId, changeFieldOldValue} = this.state;
+    const index = tasks.findIndex((task)=>task.id === changeFieldId);
+    const task = tasks[index];
+    
+    const newElement = {...task, title: changeFieldOldValue, change: false };
+    const newLeftArray = {...tasks.slice(0,index).map((task)=>task.disable = false)};
+    const newRightArray = {...tasks.slice(index + 1).map((task)=>task.disable = false)};
+    const newTasks = [...tasks.slice(0,index), newElement, ...tasks.slice(index + 1)];
+    this.setState(() => {
+      return {
+        tasks: newTasks
+      }
+    });
+  }
+
+ 
   render() {
     const {tasks, searchValue, filterBase} = this.state;
     const doneElements = tasks.filter((task) => task.done).length;
@@ -146,6 +228,10 @@ export default class App extends Component {
           makeImportant={this.makeImportant}
           makeDone={this.makeDone}
           onDelete={this.onDelete}
+          changeTask={this.changeTask}
+          changeFieldValue={this.changeFieldValue}
+          cancelChange={this.cancelChange}
+          saveChange={this.saveChange}
         />
         <CreateItem createTask={this.onTaskAdded}/>
       </div>

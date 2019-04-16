@@ -8,7 +8,7 @@ const buttons = [
     { name: 'Left', key: 'left'}
 ];
 
-const Filter = ({filterBase,doFilterTasks = () => {}}) => {
+const Filter = ({filterBase,doFilterTasks}) => {
     
     const result = buttons.map(({name, key}) => {
         const isActive = key === filterBase;
